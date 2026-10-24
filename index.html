@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Barranquilla No Se Apaga · Medir y competir</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,2 36,11 36,29 20,38 4,29 4,11' fill='%231f9d55'/%3E%3Cpath d='M20 30c-7-3-9-10-5-16 6 2 9 8 5 16z' fill='%23fff'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8d66b"/><stop offset="1" stop-color="#e0a21a"/></linearGradient>
+      <linearGradient id="sv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9dfe1"/><stop offset="1" stop-color="#9aa5a8"/></linearGradient>
+      <linearGradient id="br" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7b08a"/><stop offset="1" stop-color="#e0743f"/></linearGradient>
+    </defs>
+  </svg>
+
+  <div class="app">
+    <nav id="nav" aria-label="Secciones"></nav>
+    <div class="main">
+      <div class="bar0">
+        <h1 id="vt">Ranking</h1>
+        <button class="live" id="lv" type="button" aria-pressed="false"><i></i>Simulación en vivo</button>
+      </div>
+      <div class="banner" id="bn"></div>
+
+      <section class="view" id="v-rank">
+        <div class="filters">
+          <select id="fs" aria-label="Tamaño">
+            <option value="Todas">Todos los tamaños</option>
+            <option>Micro</option>
+            <option>Pequeña</option>
+            <option>Mediana</option>
+            <option>Grande</option>
+          </select>
+          <select id="fz" aria-label="Zona">
+            <option value="all">Todas las zonas</option>
+            <option value="a">Ahorro</option>
+            <option value="s">Zona segura</option>
+            <option value="r">Recargo</option>
+          </select>
+          <select id="so" aria-label="Ordenar por">
+            <option value="sav">Mayor ahorro</option>
+            <option value="kwh">Más kWh ahorrados</option>
+            <option value="per">Menos consumo por empleado</option>
+          </select>
+          <select id="cs" aria-label="Ciclo"></select>
+          <input id="q" type="search" placeholder="Buscar empresa" aria-label="Buscar empresa">
+        </div>
+        <div class="cards" id="cards"></div>
+        <div class="sec-h"><h2>Top empresas</h2></div>
+        <div class="tbl">
+          <div class="th">
+            <span>Puesto</span><span>Empresa</span><span>Ahorro</span>
+            <span>Consumo vs meta</span><span>Tendencia</span><span>Zona</span>
+          </div>
+          <div id="list"></div>
+        </div>
+        <p class="legend">Menos de 90% de la meta: ahorro. De 90% a 110%: zona segura. Más de 110%: recargo. Toca una empresa para ver su historial. El valor en pesos y el correo son privados.</p>
+        <div class="card charts">
+          <div>
+            <h3>Tendencia: % de la meta por ciclo</h3>
+            <div id="tr"></div>
+          </div>
+          <div>
+            <h3>Empresas por zona</h3>
+            <div id="zn"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="v-reg" hidden>
+        <form class="card formw" id="f" novalidate>
+          <h2 style="font-size:1.3rem">Registra tu ciclo</h2>
+          <p class="sub" id="cyl" style="margin:6px 0 0"></p>
+          <label for="n">Nombre de la empresa</label>
+          <input id="n" required maxlength="60" autocomplete="organization">
+          <label for="e">Correo para recordatorios <span class="hint">(privado)</span></label>
+          <input id="e" type="email" autocomplete="email" required>
+          <div class="two">
+            <div>
+              <label for="t">Tamaño</label>
+              <select id="t">
+                <option>Micro</option>
+                <option>Pequeña</option>
+                <option>Mediana</option>
+                <option>Grande</option>
+              </select>
+            </div>
+            <div>
+              <label for="emp">Empleados</label>
+              <input id="emp" type="number" min="1" step="1" inputmode="numeric" required>
+            </div>
+          </div>
+          <div class="two">
+            <div>
+              <label for="m">Meta (kWh/día)</label>
+              <input id="m" type="number" min="1" step="any" inputmode="decimal" required>
+            </div>
+            <div>
+              <label for="c">Consumo (kWh/día)</label>
+              <input id="c" type="number" min="0" step="any" inputmode="decimal" required>
+            </div>
+          </div>
+          <label for="pe">Valor de la factura (COP) <span class="hint">(privado)</span></label>
+          <input id="pe" type="number" min="0" step="1000" inputmode="numeric" required>
+          <label for="p">Foto del recibo (evidencia)</label>
+          <input id="p" type="file" accept="image/*" required>
+          <img id="prev" class="prev" alt="Vista previa del recibo">
+          <button class="btn" type="submit">Enviar al ranking</button>
+          <div class="msg" id="msg" role="status"></div>
+        </form>
+      </section>
+
+      <section class="view" id="v-mine" hidden><div class="card" id="mn"></div></section>
+      <section class="view" id="v-rem" hidden><div class="card" id="rm"></div></section>
+      <section class="view" id="v-ds" hidden><div class="card" id="dsb"></div></section>
+    </div>
+  </div>
+
+  <div id="toast" role="alert"></div>
+  <dialog id="dd2">
+    <div id="dbody"></div>
+    <button class="btn g" type="button" id="close-detail">Cerrar</button>
+  </dialog>
+  <dialog id="bd">
+    <button class="flip" id="fl" type="button" aria-label="Voltear el sello">
+      <div>
+        <span id="fsl"></span>
+        <span class="bk">Cámara de Comercio de Barranquilla · Ahorro de energía</span>
+      </div>
+    </button>
+    <h3 style="text-align:center">Sello Cámara de Comercio</h3>
+    <div id="bdyn"></div>
+    <label for="gr">Meta de ahorro para ganarlo: <b id="gv"></b></label>
+    <input id="gr" type="range" min="5" max="30" step="1">
+    <button class="btn g" type="button" id="close-badge">Cerrar</button>
+  </dialog>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
