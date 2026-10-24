@@ -244,7 +244,7 @@ function toast(t) {
   toast.t = setTimeout(() => (e.style.display = "none"), 5000);
   try {
     if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("Barranquilla No Se Apaga", { body: t });
+      new Notification("Nexo Dev", { body: t });
     }
   } catch (_) {}
 }
@@ -313,7 +313,7 @@ const NAV = [
 function renderNav() {
   const pn = pending(win().cy).length;
   $("nav").innerHTML =
-    `<div class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="#1f9d55"/><path d="M20 30c-7-3-9-10-5-16 6 2 9 8 5 16z" fill="#fff"/></svg>Barranquilla<br>No Se Apaga</div>` +
+    `<div class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="#1f9d55"/><path d="M20 30c-7-3-9-10-5-16 6 2 9 8 5 16z" fill="#fff"/></svg>Nexo Dev</div>` +
     NAV.map(
       (n, i) =>
         `${i === 0 ? '<div class="grp">Explorar</div>' : i === 1 ? '<div class="grp">Participa</div>' : ""}<button type="button" data-v="${n[0]}" ${n[0] === view0 ? 'aria-current="page"' : ""}><span class="ic">${n[1]}</span>${n[2]}${n[0] === "rem" && pn ? `<span class="nb">${pn}</span>` : ""}</button>`
@@ -515,7 +515,7 @@ function renderMine() {
 function mailtoRemind(ns, msg) {
   const emails = ns.map((n) => data.find((x) => x.n === n)?.email).filter(Boolean);
   const unique = [...new Set(emails)];
-  const subject = encodeURIComponent("Barranquilla No Se Apaga — recordatorio de ciclo");
+  const subject = encodeURIComponent("Nexo Dev — recordatorio de ciclo");
   const body = encodeURIComponent("Hola,\n\nDesde la Cámara de Comercio: " + msg + "\n\nEntra a Medir y competir y registra tu consumo vs. meta.\n");
   const href =
     unique.length === 1
